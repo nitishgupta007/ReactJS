@@ -6,27 +6,70 @@ import Employee from './Employee/Employee.js';
 class App extends Component {
   state = {
     persons: [
-      { name: 'Nitish', age: 29 },
-      { name: 'Sachin', age: 28 },
-      { name: 'Gaurav', age: 20 }
-    ]
+      { id:'1', name: 'Nitish', age: 29 },
+      { id:'2', name: 'Mayur', age: 30 },
+      { id:'3', name: 'Gaurav', age: 20 }
+    ],
+    showPersons: false
   }
-  
+
+  togglepersonsHandler = () => {
+    const doesShow = this.state.showPersons;
+    this.setState({showPersons: !doesShow});
+  }
+
+  deletePersonHandler = (personIndex) => {
+    // const persons = this.state.persons.slice();
+    const persons = [...this.state.persons];
+    persons.splice(personIndex, 1);
+    this.setState({persons: persons})
+  }
+
+  namechangeHandler = ( event, id ) => {
+    const personIndex = this.state.persons.findIndex(p => { 
+      return p.id === id;
+    });
+
+    const person = {
+      ...this.state.persons[personIndex]
+    };
+    person.name = event.target.value;
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+    this.setState( { persons: persons });
+
+    
+    // this.setState ( {
+    //   persons: [
+    //     { name: 'Nitish', age: 29 },
+    //     { name: event.target.value, age: 28 },
+    //     { name: 'Gaurav', age: 20 }
+    //   ]
+    // })
+  }
+
   render() {
+    let persons = null;
+    if ( this.state.showPersons ) {
+      persons = (
+        <div>
+          {this.state.persons.map((person, index) =>{
+            return <Employee 
+              click={this.deletePersonHandler}
+              name={person.name} 
+              age={person.age} 
+              key={person.id}
+              changed={(event) => this.namechangeHandler(event, person.id)} />
+          })}
+        </div>
+      )
+    }
     return (
       <div className="App">
         <h1>React app by nitish</h1>
         <p>This is really working</p>
-        <button onClick={ () => this.switchNmaeHandler('Maximilaian!!')}>Click on</button>
-        <Employee 
-          name={this.state.persons[0].name}
-          age={this.state.persons[0].age}/>
-          <Employee 
-          name={this.state.persons[1].name}
-          age={this.state.persons[1].age}/>
-          <Employee 
-          name={this.state.persons[2].name}
-          age={this.state.persons[2].age}/>
+        <button className="clickable_button" onClick={this.togglepersonsHandler}>Click on</button>
+        {persons}
       </div>
     );
   }
