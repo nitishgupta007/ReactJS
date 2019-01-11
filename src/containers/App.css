@@ -1,22 +1,33 @@
 .App {
   text-align: center;
 }
-
+input {
+  padding: .5rem;
+  border-radius: 3px;
+  border: 1px solid #c3c3c3;
+  font-size: 1rem;
+}
 .clickable_button {
   background: #3499db;
   border: 1px solid #3499db;
   border-radius: 3px;
   color: #fff;
-  font-size: 1rem;
   outline: 0;
   padding: calc(.5rem - 1px) calc(1rem - 1px);
   text-decoration: none;
   cursor: pointer;
 }
-
-.clickable_button:hover{
+.clickable_button:hover {
   background: rgb(4, 4, 212);
 }
 .clickable_button_error{
   background: red;
+  border: 1px solid #ee1212;
+}
+.clickable_button_error:hover {
+  background: #830303;
+  border: 1px solid #830303;
+}
+.m-t-sm {
+  margin-top: .5rem;
 }

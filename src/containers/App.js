@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import Employee from '../components/Employees/Employee/Employee';
+import Employees from '../components/Employees/Employees';
+import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
   state = {
@@ -19,7 +20,6 @@ class App extends Component {
   }
 
   deletePersonHandler = (personIndex) => {
-    // const persons = this.state.persons.slice();
     const persons = [...this.state.persons];
     persons.splice(personIndex, 1);
     this.setState({persons: persons})
@@ -45,22 +45,18 @@ class App extends Component {
     if ( this.state.showPersons ) {
       persons = (
         <div>
-          {this.state.persons.map((person, index) =>{
-            return <Employee 
-              click={this.deletePersonHandler}
-              name={person.name} 
-              age={person.age} 
-              key={person.id}
-              changed={(event) => this.namechangeHandler(event, person.id)} />
-          })}
+          <Employees 
+          persons={this.state.persons}
+          clicked={this.deletePersonHandler}
+          changed={this.namechangeHandler}/>
         </div>
       );
     }
     return (
       <div className="App">
-        <h1>React app by nitish</h1>
-        <p>This is really working</p>
-        <button className="clickable_button" onClick={this.togglepersonsHandler}>Click on</button>
+        <Cockpit 
+        appTitle={this.props.title}
+        clicked={this.togglepersonsHandler}/>
         {persons}
       </div>
     );
