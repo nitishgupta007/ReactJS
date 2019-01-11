@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Employee from './Employee/Employee.js';
+import Employee from '../components/Employees/Employee/Employee';
 
 class App extends Component {
   state = {
@@ -10,6 +9,7 @@ class App extends Component {
       { id:'2', name: 'Mayur', age: 30 },
       { id:'3', name: 'Gaurav', age: 20 }
     ],
+    otherState: 'some other value',
     showPersons: false
   }
 
@@ -33,19 +33,11 @@ class App extends Component {
     const person = {
       ...this.state.persons[personIndex]
     };
+
     person.name = event.target.value;
     const persons = [...this.state.persons];
     persons[personIndex] = person;
-    this.setState( { persons: persons });
-
-    
-    // this.setState ( {
-    //   persons: [
-    //     { name: 'Nitish', age: 29 },
-    //     { name: event.target.value, age: 28 },
-    //     { name: 'Gaurav', age: 20 }
-    //   ]
-    // })
+    this.setState( { persons: persons } );
   }
 
   render() {
@@ -62,7 +54,7 @@ class App extends Component {
               changed={(event) => this.namechangeHandler(event, person.id)} />
           })}
         </div>
-      )
+      );
     }
     return (
       <div className="App">
