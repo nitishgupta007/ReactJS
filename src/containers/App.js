@@ -4,6 +4,10 @@ import Employees from '../components/Employees/Employees';
 import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
+  constructor (props) {
+    super(props);
+    console.log('[App.js] Inside Constructor', props);
+  }
   state = {
     persons: [
       { id:'1', name: 'Nitish', age: 29 },
@@ -11,12 +15,18 @@ class App extends Component {
       { id:'3', name: 'Gaurav', age: 20 }
     ],
     otherState: 'some other value',
-    showPersons: false
+    showPersons: false,
+    toggleClicked: 0
   }
 
   togglepersonsHandler = () => {
     const doesShow = this.state.showPersons;
-    this.setState({showPersons: !doesShow});
+    this.setState( (prevState, props) => {
+      return {
+        showPersons: !doesShow, 
+        toggleClicked: prevState.toggleClicked + 1
+      }
+    });
   }
 
   deletePersonHandler = (personIndex) => {

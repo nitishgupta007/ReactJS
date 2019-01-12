@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Employee from './Employee/Employee';
 
-const employees = (props) =>
-    props.persons.map((person, index) =>{
-        return <Employee 
-          click={() => props.clicked(index)}
-          name={person.name} 
-          age={person.age} 
-          key={person.id}
-          changed={(event) => props.changed(event, person.id)} />
-      });
-
-export default employees;      
+class Employees extends Component {
+    render () {
+        return this.props.persons.map((person, index) =>{
+            return <Employee 
+              click={() => this.props.clicked(index)}
+              name={person.name}
+              age={person.age} 
+              key={person.id}
+              changed={(event) => this.props.changed(event, person.id)} />
+          });
+    }
+}
+export default Employees;

@@ -1,17 +1,26 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './Employee.css';
+import propTypes from 'prop-types';
 
-const employee = ( props ) => {
- return (
-    <div className="Employee">
-        <p>I' am {props.name} and I am {props.age} year old.</p>
-        <p>{props.children}</p>
-        <input type="text" onChange={props.changed} value={props.name} />
-        <div class="m-t-sm">
-            <button type="text" class="clickable_button clickable_button_error" onClick={props.click}>DELETE</button>
-        </div>
-    </div> 
- )
-};
+class Employee extends Component {
+    render () {
+        return (
+            <div className="Employee">
+                <p>I' am {this.props.name} and I am {this.props.age} year old.</p>
+                <p>{this.props.children}</p>
+                <input type="text" onChange={this.props.changed} value={this.props.name} />
+                <div className="m-t-sm">
+                    <button type="text" className="clickable_button clickable_button_error" onClick={this.props.click}>DELETE</button>
+                </div>
+            </div> 
+        )
+    }
+}
+Employee.propTypes = {
+    click: propTypes.func,
+    name: propTypes.string,
+    age: propTypes.number,
+    changed: propTypes.func
+}
 
-export default  employee;
+export default  Employee;
